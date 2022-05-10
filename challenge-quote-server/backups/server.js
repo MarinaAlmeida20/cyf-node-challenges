@@ -25,9 +25,20 @@ app.get("/quotes", function (req, res) {
   res.send(quotes);
 });
 
+app.get("/quotes/search", (req, res) => {
+  const searchWord = req.query.term;
+  // console.log(searchWord);
+  const result = search(searchWord);
+  res.send(result);
+});
+
 app.get("/quotes/random", function (req, res) {
   res.send(pickFromArray(quotes));
 });
+
+function search(term) {
+  return quotes.filter((q) => q.quote.includes(term));
+}
 //...END OF YOUR CODE
 
 //You can use this function to pick one element at random from a given array
