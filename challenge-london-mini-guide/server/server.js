@@ -9,7 +9,8 @@ app.use(express.json());
 
 const port = 8080;
 
-const allPharmacies = [harrow, heathrow, stratford]; // all pharmacies
+const allLocationNames = ["harrow", "heathrow", "stratford"]
+const allLocationObjects = [harrow, heathrow, stratford]; // all location objects
 
 const stratfordPharmacies = stratford;
 
@@ -45,79 +46,60 @@ app.get("/hospitals", (req, res) => {
 // level 300
 // returns pharmacies list for :city
 app.get("/:city/pharmacies", (req, res) => {
-  console.log(req.params.city);
 
-  if (req.params.city === "stratford") {
-    const pharmacies = stratford.pharmacies;
-    return res.send(pharmacies);
+  let city = req.params.city;
+
+  if (city) {
+    let cityIndex = allLocationNames.indexOf(city)
+      const pharmacies = allLocationObjects[cityIndex].pharmacies;
+      return res.json(pharmacies);
+    } else {
+    res.json("Ops, something goes wrong!");
   }
-  if (req.params.city === "harrow") {
-    const pharmacies = harrow.pharmacies;
-    return res.send(pharmacies);
-  }
-  if (req.params.city === "heathrow") {
-    const pharmacies = heathrow.pharmacies;
-    return res.send(pharmacies);
-  }
-  res.send("Ops, something goes wrong! Check the path again please!");
 });
 
 // returns colleges list for :city
 app.get("/:city/colleges", (req, res) => {
-  console.log(req.params.city);
 
-  if (req.params.city === "stratford") {
-    const colleges = stratford.colleges;
-    return res.send(colleges);
-  }
-  if (req.params.city === "harrow") {
-    const colleges = harrow.colleges;
-    return res.send(colleges);
-  }
-  if (req.params.city === "heathrow") {
-    const colleges = heathrow.colleges;
-    return res.send(colleges);
-  }
-  res.send("Ops, something goes wrong! Check the path again please!");
+  let city = req.params.city;
+
+  if (city) {
+    let cityIndex = allLocationNames.indexOf(city)
+      const colleges = allLocationObjects[cityIndex].colleges;
+      return res.json(colleges);
+    } else {
+      res.json("Ops, something goes wrong!");
+    }
 });
 
 // returns doctors list for :city
 app.get("/:city/doctors", (req, res) => {
-  console.log(req.params.city);
 
-  if (req.params.city === "stratford") {
-    const doctors = stratford.doctors;
-    return res.send(doctors);
-  }
-  if (req.params.city === "harrow") {
-    const doctors = harrow.doctors;
-    return res.send(doctors);
-  }
-  if (req.params.city === "heathrow") {
-    const doctors = heathrow.doctors;
-    return res.send(doctors);
-  }
-  res.send("Ops, something goes wrong! Check the path again please!");
+  let city = req.params.city;
+
+  if (city) {
+    let cityIndex = allLocationNames.indexOf(city)
+      const doctors = allLocationObjects[cityIndex].doctors;
+      return res.json(doctors);
+    } else {
+    res.json("Ops, something goes wrong!");
+
+    }
 });
 
 // returns hospitals list for :city
 app.get("/:city/hospitals", (req, res) => {
-  console.log(req.params.city);
+  let city = req.params.city;
 
-  if (req.params.city === "stratford") {
-    const hospitals = stratford.hospitals;
+  if (city) {
+  let cityIndex = allLocationNames.indexOf(city)
+    const hospitals = allLocationObjects[cityIndex].hospitals;
     return res.send(hospitals);
-  }
-  if (req.params.city === "harrow") {
-    const hospitals = harrow.hospitals;
-    return res.send(hospitals);
-  }
-  if (req.params.city === "heathrow") {
-    const hospitals = heathrow.hospitals;
-    return res.send(hospitals);
-  }
+  } else {
   res.send("Ops, something goes wrong! Check the path again please!");
+}
 });
+
 
 app.listen(port, () => {
   console.log(`Listen in http://localhost:${port}`);
